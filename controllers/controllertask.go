@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/VincentDrevet/models"
 	"github.com/gin-gonic/gin"
@@ -59,6 +60,58 @@ func AddTask(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"data": task,
 	})
+
+}
+
+//FullUpdateTask do full update of task
+//[PUT] /tasks/:id
+func FullUpdateTask(c *gin.Context) {
+
+	//var task models.Task
+	var input models.Task
+	/*
+
+
+		if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+	*/
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	if strconv.Itoa(int(input.ID)) != c.Param("id") {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "ID mismatch",
+		})
+		return
+	}
+
+	err := models.DB.Model(&models.Task{}).Where("id = ?", c.Param("id")).Updates(models.Task{
+		ID:          input.ID,
+		Hour:        input.Hour,
+		Minute:      input.Minute,
+		Second:      input.Second,
+		Day:         input.Day,
+		Periodicity: input.Day,
+		ServerID:    input.ServerID,
+	}).Error
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusNoContent, gin.H{})
 
 }
 

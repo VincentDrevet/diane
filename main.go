@@ -21,6 +21,7 @@ func main() {
 	v1.GET("/tasks/:id", controllers.GetTaskByID)
 	v1.POST("/tasks", controllers.AddTask)
 	v1.DELETE("/tasks/:id", controllers.DeleteTaskByID)
+	v1.PUT("/tasks/:id", controllers.FullUpdateTask)
 
 	router.Run()
 }
