@@ -1,0 +1,5 @@
+{
+    "dbpath": "diane.db",
+    "debug_enable": true,
+    "debug_file": "diane_debug.log"
+}
