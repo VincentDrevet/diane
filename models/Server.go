@@ -8,5 +8,5 @@ type Server struct {
 	SSHPort    int    `json:"sshport"`
 	User       string `json:"user"`
 	PrivateKey string `json:"privatekey"`
-	Tasks      []Task `json:"tasks"`
+	Tasks      []Task `json:"tasks" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }

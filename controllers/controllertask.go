@@ -53,6 +53,7 @@ func AddTask(c *gin.Context) {
 		Day:         dtotask.Day,
 		Periodicity: dtotask.Periodicity,
 		ServerID:    dtotask.ServerID,
+		IsEnable:    dtotask.IsEnable,
 	}
 
 	models.DB.Create(&task)
@@ -69,17 +70,6 @@ func FullUpdateTask(c *gin.Context) {
 
 	//var task models.Task
 	var input models.Task
-	/*
-
-
-		if err := models.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-	*/
-
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -102,6 +92,7 @@ func FullUpdateTask(c *gin.Context) {
 		Day:         input.Day,
 		Periodicity: input.Day,
 		ServerID:    input.ServerID,
+		IsEnable:    input.IsEnable,
 	}).Error
 
 	if err != nil {

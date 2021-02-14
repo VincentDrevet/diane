@@ -8,4 +8,5 @@ type DTOTask struct {
 	Day         int  `json:"day"`
 	Periodicity int  `json:"peridicity"`
 	ServerID    uint `json:"serverid"`
+	IsEnable    bool `json:"isenable"`
 }

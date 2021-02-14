@@ -8,5 +8,6 @@ type Task struct {
 	Second      int  `json:"second"`
 	Day         int  `json:"day"`
 	Periodicity int  `json:"peridicity"`
-	ServerID    uint
+	ServerID    uint `json:"server_id"`
+	IsEnable    bool `json:"isenable"`
 }
